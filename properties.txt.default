@@ -1,8 +1,8 @@
-token=
-path.l1.pdf=none
-path.l1.img=none
-path.m1.pdf=none
-path.m1.img=none
-path.m2.pdf=none
-path.m2.img=none
-url.name=
+token=<token du bot discord>
+url.name=<prénom.nom à mettre dans l'url pour accéder à l'emploi du temps>
+path.l1.pdf=<chemin du pdf du calendrier d'alternance de licence ou "none" si non présent>
+path.l1.img=<chemin du img du calendrier d'alternance de licence ou "none" si non présent>
+path.m1.pdf=<chemin du pdf du calendrier d'alternance de master 1 ou "none" si non présent>
+path.m1.img=<chemin du img du calendrier d'alternance de master 1 ou "none" si non présent>
+path.m2.pdf=<chemin du pdf du calendrier d'alternance de master 2 ou "none" si non présent>
+path.m2.img=<chemin du img du calendrier d'alternance de master 2 ou "none" si non présent>
