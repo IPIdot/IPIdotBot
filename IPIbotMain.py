@@ -3,6 +3,7 @@ from discord import File
 import datetime
 import os
 from IPIbotScreenshot import screenshot
+import IPIbotRecupInfo
 
 client = discord.Client()
 
@@ -15,9 +16,9 @@ async def on_ready():
     for each_message in messages:
         await each_message.delete()
     await channelBot.send("!edt -> envoie le lien et l'image de l'empoi "
-                               "du temps\n!ca <forma> <année> -> envoie le "
-                               "calendrier d'alternance(<forma> = pdf ou img | <année> li ou m1)\n!helpIPI ->"
-                               " affiche toutes les commandes")
+                          "du temps\n!ca <forma> <année> -> envoie le "
+                          "calendrier d'alternance(<forma> = pdf ou img | <année> li ou m1 ou m2)\n!helpIPI ->"
+                          " affiche toutes les commandes")
 
 
 @client.event
@@ -25,16 +26,15 @@ async def on_message(message):
     channelBot = client.get_channel(870620313673674762)
     if message.content == "le j":
         await message.channel.send("c'est le S ")
-
     # ------- commande : !help affiche toutes les commandes ------- #
     if message.content == "!helpIPI":
         messages = await message.channel.history(limit=1).flatten()
         for each_message in messages:
             await each_message.delete()
         await channelBot.send("!edt -> envoie le lien et l'image de l'empoi "
-                                   "du temps\n!ca <forma> <année> -> envoie le "
-                                   "calendrier d'alternance(<forma> = pdg ou img | <année> li ou m1)\n!helpIPI ->"
-                                   " affiche toutes les commandes")
+                              "du temps\n!ca <forma> <année> -> envoie le "
+                              "calendrier d'alternance(<forma> = pdg ou img | <année> li ou m1 ou m2)\n!helpIPI ->"
+                              " affiche toutes les commandes")
 
     # ------- commande : !lien affiche le derrnier lien teams ajouter à l'empoi du temmps ------- #
     if message.content == "!lien":
@@ -46,7 +46,7 @@ async def on_message(message):
     # ------- commande : !edt envoie le lien de l'empoi du temmps ------- #
     if message.content == "!edt":
         author = message.author.name
-        link=ConstructionURL(author)
+        link = ConstructionURL(author)
         messages = await message.channel.history(limit=1).flatten()
         for each_message in messages:
             await each_message.delete()
@@ -73,35 +73,65 @@ async def on_message(message):
 
     # ------- commande : !ca envoie le calendrier d'alternance (img ou pdf) (licence ou master 1) ------- #
     if message.content.startswith("!ca"):
-        optionAnne=str(message.content.split()[2])
-        optionForma=str(message.content.split()[1])
+        optionAnne = str(message.content.split()[2])
+        optionForma = str(message.content.split()[1])
         messages = await message.channel.history(limit=1).flatten()
         for each_message in messages:
             await each_message.delete()
         if optionForma == "img":
             if optionAnne == "li":
-                await channelBot.send("Calendrier d'alternance de licence :")
-                await channelBot.send(file=File("CalAlt.png"))
+                path = IPIbotRecupInfo.RecupPathLicence('img')
+                if path != 'none':
+                    await channelBot.send("Calendrier d'alternance de licence :")
+                    await channelBot.send(file=File(path))
+                else:
+                    await channelBot.send("L'image du calendrier d'alternance de licence n'est pas disponible")
             elif optionAnne == "m1":
-                await channelBot.send("Calendrier d'alternance de master 1 :")
-                await channelBot.send(file=File("CalAltM1.png"))
-            else:
-             await channelBot.send("l'option 2 n'est pas valide : l = licence ; m1 = Master 1")
+                path = IPIbotRecupInfo.RecupPathMaster('img', 1)
+                if path != 'none':
+                    await channelBot.send("Calendrier d'alternance de master 1 :")
+                    await channelBot.send(file=File(path))
+                else:
+                    await channelBot.send("L'image du calendrier d'alternance de master 1 n'est pas disponible")
+            elif optionAnne == "m2":
+                path = IPIbotRecupInfo.RecupPathMaster('img', 2)
+                if path != 'none':
+                    await channelBot.send("Calendrier d'alternance de master 2 :")
+                    await channelBot.send(file=File(path))
+                else:
+                    await channelBot.send("L'image du calendrier d'alternance de master 2 n'est pas disponible")
         elif optionForma == "pdf":
             if optionAnne == "li":
-                await channelBot.send("Calendrier d'alternance de licence :")
-                await channelBot.send(file=File("iPi_Digitalents_2020_2021.pdf"))
+                path = IPIbotRecupInfo.RecupPathLicence('pdf')
+                if path != 'none':
+                    await channelBot.send("Calendrier d'alternance de licence :")
+                    await channelBot.send(file=File(path))
+                else:
+                    await channelBot.send("Le pdf du calendrier d'alternance de licence n'est pas disponible")
             elif optionAnne == "m1":
-                await channelBot.send("Calendrier d'alternance de master 1 :")
-                await channelBot.send(file=File("iPi_Digitalents_2021_2022.pdf"))
-            else:
-                channelBot.send("l'option année n'est pas valide : li = licence ; m1 = master 1")
-        else:
-            await channelBot.send("l'option forma n'est pas valide : pdf = fichier.pdf ; img = fichier.png")
+                path = IPIbotRecupInfo.RecupPathMaster('pdf', 1)
+                if path != 'none':
+                    await channelBot.send("Calendrier d'alternance de master 1 :")
+                    await channelBot.send(file=File(path))
+                else:
+                    await channelBot.send("Le pdf du calendrier d'alternance de master 1 n'est pas disponible")
+            elif optionAnne == "m2":
+                path = IPIbotRecupInfo.RecupPathMaster('pdf', 2)
+                if path != 'none':
+                    await channelBot.send("Calendrier d'alternance de master 2 :")
+                    await channelBot.send(file=File(path))
+                else:
+                    await channelBot.send("Le pdf du calendrier d'alternance de master 2 n'est pas disponible")
 
-    # ------- commande : !purge <channel> (etude1...etude5)  ------- #
+    # ------- commande : !purge <channel> (etude1...etude5  ------- #
     if message.content.startswith("!purge"):
-        option=str(message.content.split()[1])
+        option = str(message.content.split()[1])
+
+    if message.content.startswith("!del"):
+        number = int(message.content.split()[1])
+        messages = await message.channel.history(limit=number + 1).flatten()
+        for each_message in messages:
+            await each_message.delete()
 
 
 def ConstructionURL(author):
@@ -110,26 +140,10 @@ def ConstructionURL(author):
     jour = date.day
     anne = date.year
 
-    if author == 'AkEricuZemmouru':
-        prenomDotNom = 'hugo.mercier'
-    elif author == 'GreGres':
-        prenomDotNom = 'antoine.bouard'
-    elif author == 'Kaarie':
-        prenomDotNom = 'eymeric.sertgoz'
-    elif author == 'JeanFarine LePain':
-        prenomDotNom = 'cyril.portascarta'
-    elif author == 'MurdererKid':
-        prenomDotNom = 'maxime.decorde'
-    elif author == 'PepsiMajor':
-        prenomDotNom = 'semi.gokol'
-    elif author == 'GetRaikt':
-        prenomDotNom = 'theodore.follet'
-    elif author == 'Emilien':
-        prenomDotNom = 'emilien.denot'
-    else:
-        prenomDotNom = 'hugo.mercier'
+    prenomDotNom = IPIbotRecupInfo.RecupName()
 
-    return "https://edtmobiliteng.wigorservices.net//WebPsDyn.aspx?action=posEDTBEECOME&Tel=" + prenomDotNom + "&date=" + str(mois) + "/" + str(jour) + "/" + str(anne)
+    return "https://edtmobiliteng.wigorservices.net//WebPsDyn.aspx?action=posEDTBEECOME&Tel=" + prenomDotNom + "&date=" + str(
+        mois) + "/" + str(jour) + "/" + str(anne)
 
 
-client.run("ODcwMTk4NzgxNjc1NzE2NjI5.YQJRxQ.SQzqi03OK-PqPfoJIcXYEHNt0D8")
+client.run(IPIbotRecupInfo.RecupToken())
