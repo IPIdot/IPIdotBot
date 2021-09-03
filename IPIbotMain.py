@@ -17,8 +17,9 @@ async def on_ready():
         await each_message.delete()
     await channelBot.send("!edt -> envoie le lien et l'image de l'empoi "
                           "du temps\n!ca <forma> <année> -> envoie le "
-                          "calendrier d'alternance(<forma> = pdf ou img | <année> li ou m1 ou m2)\n!helpIPI ->"
-                          " affiche toutes les commandes")
+                          "calendrier d'alternance(<forma> = pdg ou img | <année> li ou m1 ou m2)\n!logo <graph> "
+                          "<Typo> -> envoie le logo de l'ipi(<graph> = flat ou ombre | <typo> false ou true)\n"
+                          "!helpIPI -> affiche toutes les commandes")
 
 
 @client.event
@@ -33,8 +34,9 @@ async def on_message(message):
             await each_message.delete()
         await channelBot.send("!edt -> envoie le lien et l'image de l'empoi "
                               "du temps\n!ca <forma> <année> -> envoie le "
-                              "calendrier d'alternance(<forma> = pdg ou img | <année> li ou m1 ou m2)\n!helpIPI ->"
-                              " affiche toutes les commandes")
+                              "calendrier d'alternance(<forma> = pdg ou img | <année> li ou m1 ou m2)\n!logo <graph> "
+                              "<Typo> -> envoie le logo de l'ipi(<graph> = flat ou ombre | <typo> false ou true)\n"
+                              "!helpIPI -> affiche toutes les commandes")
 
     # ------- commande : !lien affiche le derrnier lien teams ajouter à l'empoi du temmps ------- #
     if message.content == "!lien":
@@ -132,6 +134,24 @@ async def on_message(message):
         messages = await message.channel.history(limit=number + 1).flatten()
         for each_message in messages:
             await each_message.delete()
+
+    # ------- commande : !logo envoie le logo de l'IPI (flat ou ombre) (true ou false (typo)) ------- #
+    if message.content.startswith("!logo"):
+        optionFlat = str(message.content.split()[1])
+        optionTypo = str(message.content.split()[2])
+        messages = await message.channel.history(limit=1).flatten()
+        for each_message in messages:
+            await each_message.delete()
+        if optionFlat == "flat":
+            if optionTypo == "true":
+                await channelBot.send(file=File('logoIPITypoFlat.png'))
+            elif optionTypo == "false":
+                await channelBot.send(file=File('logoIPIFlat.png'))
+        elif optionFlat == "ombre":
+            if optionTypo == "true":
+                await channelBot.send(file=File('logoIPITypo.png'))
+            elif optionTypo == "false":
+                await channelBot.send(file=File('logoIPI.png'))
 
 
 def ConstructionURL(author):
