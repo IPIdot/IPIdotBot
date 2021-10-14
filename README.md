@@ -1,4 +1,4 @@
-# IPI-BOT
+# IPIdotBOT
 
 ## Installation
 
