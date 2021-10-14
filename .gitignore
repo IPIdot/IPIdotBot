@@ -3,3 +3,6 @@
 .DS_Store
 config.json
 node_modules
+*.xml
+*.iml
+*.txt
