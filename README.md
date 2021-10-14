@@ -1,15 +1,16 @@
+# IPI-BOT
+
 ## Installation
 
+> [lien invitation](https://discord.com/api/oauth2/authorize?client_id=897585601665187872&permissions=8&scope=bot)
+
+Instalation du projet :
+```shell
+npm install
 ```
-pip install pyppeteer
-```
-```
-pip install discord
-```
-## Configuration
-renommer properties.txt.default en properties.txt et entrer les infos demandé
 
+## Feature
 
-
-
-
+- [x] /ping
+- [ ] /server
+- [ ] /edt stuff
