@@ -1,26 +1,30 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageActionRow, MessageButton, MessageEmbed } = require('discord.js');
 const { CALENDRIER_ALTERNANCE_L, CALENDRIER_ALTERNANCE_M1, CALENDRIER_ALTERNANCE_M2 } = require('./config.json');
 
-module.exports = {
+
+module.exports =
+{
     data: new SlashCommandBuilder()
         .setName('cal')
-        .setDescription('!ca forma année -> envoie le calendrier d\'alternance(forma = pdg ou img | année = li ou m1 ou m2)'),
-    async execute(interaction) {
-        const row = new MessageActionRow()
-            .addComponents(
-                new MessageButton()
-                    .setCustomId('primary')
-                    .setLabel('Primary')
-                    .setStyle('PRIMARY'),
-            );
-
-        const embed = new MessageEmbed()
-            .setColor('#0099ff')
-            .setTitle('Some title')
-            .setURL('https://edtmobiliteng.wigorservices.net/WebPsDyn.aspx?action=posEDTBEECOME&serverID=G&date=10/12/2021&StartMeetingTeams=444366&StartMeetingTeamsHash=1BB4C5617BD4CCB3B66768317CB71DA003B66E7CAFA2989AA4F56680F3508A53D8731E0DF4675F29EE97DAA55D1E24C853E409A9E945B8AF821D08BA9BCE559A&Tel=eymeric.sertgoz')
-            .setDescription('Some description here');
-
-        await interaction.reply({ content: 'Pong!', components: [row], embeds: [embed], ephemeral: true });
+        .setDescription('envoie le calendrier d\'alternance')
+        .addUserOption(option => option
+            .setName('annee')
+            .setDescription('Année du calendrier, li, m1 ou m2')
+            .setRequired(true)),
+    async execute(interaction)
+    {
+        let annee = interaction.options.getUser('annee');
+        switch (annee)
+        {
+            case "li":
+                interaction.reply('Calendrier d\'alternace de Licence',{files : [CALENDRIER_ALTERNANCE_L]});
+                break;
+            case "m1":
+                interaction.reply('Calendrier d\'alternace de Master 1',{files : [CALENDRIER_ALTERNANCE_M1]});
+                break;
+            case "m2":
+                interaction.reply('Calendrier d\'alternace de Master 2',{files : [CALENDRIER_ALTERNANCE_M2]});
+                break;
+        }
     },
 };
