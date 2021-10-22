@@ -20,32 +20,34 @@ module.exports =
             case "li":
                 if(CAL_L==="PATH")
                 {
-                    interaction.reply({ content: 'Calendrier d\'alternace de Licence n\'est pas trouver ou manquant', ephemeral: true, files: [] });
+                    interaction.reply({ content: 'Calendrier d\'alternace de Licence n\'est pas trouver ou manquant', ephemeral: true, files: [] }).then().catch(console.error);
                 }
                 else
                 {
-                    interaction.reply({content:'Calendrier d\'alternace de Licence', ephemeral: true, files: [CAL_L] });
+                    interaction.reply({content:'Calendrier d\'alternace de Licence', ephemeral: true, files: [CAL_L] }).then().catch(console.error);
                 }
                 break;
             case "m1":
                 if(CAL_M1==="PATH")
                 {
-                    interaction.reply({ content: 'Calendrier d\'alternace de Master 1 n\'est pas trouver ou manquant', ephemeral: true, files: [] });
+                    interaction.reply({ content: 'Calendrier d\'alternace de Master 1 n\'est pas trouver ou manquant', ephemeral: true, files: [] }).then().catch(console.error);
                 }
                 else
                 {
-                    interaction.reply({content:'Calendrier d\'alternace de Master 1', ephemeral: true, files: [CAL_M1] });
+                    interaction.reply({content:'Calendrier d\'alternace de Master 1', ephemeral: true, files: [CAL_M1] }).then().catch(console.error);
                 }
                 break;
             case "m2":
                 if(CAL_M2==="PATH")
                 {
-                    interaction.reply({ content: 'Calendrier d\'alternace de Master 2 n\'est pas trouver ou manquant', ephemeral: true, files: [] });
+                    interaction.reply({ content: 'Calendrier d\'alternace de Master 2 n\'est pas trouver ou manquant', ephemeral: true, files: [] }).then().catch(console.error);
                 }
                 else
                 {
-                    interaction.reply({content:'Calendrier d\'alternace de Master 2', ephemeral: true, files: [CAL_M2] });
+                    interaction.reply({content:'Calendrier d\'alternace de Master 2', ephemeral: true, files: [CAL_M2] }).then().catch(console.error);
                 }
+                break;
+            default: interaction.reply({ content: `La valeur pour le parametre \'annee\' doit etre \'li\', \'m1\' ou \'m2\'`, ephemeral: true, files: [] }).then().catch(console.error);
                 break;
         }
     },
