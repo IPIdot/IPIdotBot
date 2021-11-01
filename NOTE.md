@@ -38,3 +38,5 @@ npm i jsdom
 [Bot config](https://discord.com/developers/applications)
 
 [tuto](https://mtxserv.com/fr/serveur-discord/doc/creer-un-bot-discord-avec-discord-js)
+
+[DateTime lib](https://moment.github.io/luxon/#/formatting?id=toformat)

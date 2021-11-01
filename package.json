@@ -20,6 +20,8 @@
     "jsdom": "^18.0.0",
     "luxon": "^2.0.2",
     "moment": "^2.29.1",
-    "node-html-to-image": "^3.2.0"
+    "node-html-to-image": "^3.2.0",
+    "sequelize": "^6.7.0",
+    "sqlite3": "^4.2.0"
   }
 }
