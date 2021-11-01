@@ -1,4 +1,5 @@
 {
+  "DEBUG_MODE": false,
   "BOT_TOKEN": "TOKEN",
   "CLIENT_ID": "TOKEN",
   "GUILD_ID": "TOKEN",

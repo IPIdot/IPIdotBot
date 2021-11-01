@@ -1,51 +1,77 @@
 const got = require("got");
 const {JSDOM} = require("jsdom");
-const ScheduleDay = require("./internals/scheduleDay");
-const {DateTime, Interval} = require("luxon");
-const ScheduleAppointment = require("./internals/scheduleAppointment");
-module.exports = class Schedule {
+const ScheduleDay = require("./scheduleDay");
+const {DateTime, Interval, Settings: LuxonSettings} = require("luxon");
+LuxonSettings.defaultZone = 'utc';
+const ScheduleAppointment = require("./scheduleAppointment");
+const {EDT_BASE_URL} = require("../globals.js");
 
-	constructor() {
+/**
+ * Generate personal url to edt
+ * @param {string} _firstname
+ * @param {string} _lastname
+ * @param {DateTime=} _date
+ * @return {string|null} formatted edt url
+ */
+module.exports.generate_edt_url = (_firstname, _lastname, _date = DateTime.now()) => {
+	if(!_firstname || !_lastname) return null;
 
-	}
+	const user = `${_firstname.toLowerCase()}.${_lastname.toLowerCase()}`;
 
-	get_day(slashed_date) {
-		// slashed_date 31/10/2021
-		console.log("test");
-	}
+	return `${EDT_BASE_URL}&Tel=${user}&date=${_date.toFormat("MM/dd/y")}`;
 }
 
-module.exports.exposeDay = () => {
-	// target
-	console.log("> target");
-
-	const target_date = DateTime.utc(2021, 10, 18, 14, 0);
-
-	const targets = calendar.filter(elt => {
+/**
+ * Search day in calendar corresponding to target
+ * @param {Object} _calendar
+ * @param {DateTime} _date
+ * @return {null|ScheduleDay} return the found day or null
+ */
+module.exports.findDay = (_calendar, _date = DateTime.utc()) => {
+	return _calendar.find(elt => {
 		return elt.day != null
-			&& elt.day.hasSame(target_date, "year")
-			&& elt.day.hasSame(target_date, "month")
-			&& elt.day.hasSame(target_date, "day")
+			&& elt.day.hasSame(_date, "year")
+			&& elt.day.hasSame(_date, "month")
+			&& elt.day.hasSame(_date, "day");
 	});
-
-	console.table(targets);
 }
 
-module.exports.srapEDT = () => {
-	const url = "https://edtmobiliteng.wigorservices.net//WebPsDyn.aspx?action=posEDTBEECOME&serverid=G&Tel=eymeric.sertgoz&date=10/20/2021"; // TODO : refactor
+/**
+ * Find ScheduleAppointment corresponding to date schedule in given ScheduleDay
+ * @param {ScheduleDay} _day
+ * @param {DateTime} _date
+ * @return {null|ScheduleAppointment}
+ */
+module.exports.findAppointment = (_day, _date = DateTime.utc()) => {
+	if (!_day || !_day.appointments) return null;
 
-	got(url).then(response => {
+	return _day.appointments.find(elt => {
+		return elt.timeRange != null
+			&& elt.timeRange.contains(_date.plus({minutes: 13}));
+	});
+}
+
+/**
+ * Scrap EDT available on the given edt url
+ * @param _edtURL
+ * @return {Promise<*[]>}
+ */
+module.exports.scrapEDT = async (_edtURL) => {
+	//const url = "https://edtmobiliteng.wigorservices.net//WebPsDyn.aspx?action=posEDTBEECOME&serverid=G&Tel=eymeric.sertgoz&date=10/18/2021";
+	//_edtURL = url;
+
+	let calendar = [];
+
+	await got(_edtURL).then(response => {
 		const dom = new JSDOM(response.body);
 		const globalDiv = dom.window.document.querySelector("#DivBody");
 
 		let last_elt = "";
 		let scheduledDays = [];
-		let calendar = [];
 
-		// check each elt type
+		// Check each elt type
 		for (const elt of globalDiv.children) {
-
-			// check if is new week div group ?
+			// Check if is new week div group
 			if (last_elt === "Case" && elt.className !== "Case") {
 				calendar.push(...scheduledDays);
 			}
@@ -78,14 +104,17 @@ module.exports.srapEDT = () => {
 			}
 			last_elt = elt.className;
 		}
-		console.log("fin");
 	}).catch(err => {
-		console.log(err);
+		console.error(err);
 	});
+
+	return calendar;
 }
 
 function makeAppointmentFromEdtDOM(_dom, _dayDate) {
-	const tcprof = _dom.querySelector("td.TCProf").innerHTML.split("<br>");
+	const tcCase = _dom.querySelector("td.TCase");
+	const teamsLinks = tcCase.querySelectorAll(".Teams a");
+	const tcProf = _dom.querySelector("td.TCProf").innerHTML.split("<br>");
 	const timeRange = _dom.querySelector("td.TChdeb").textContent.split(" - ");
 	const startTime = DateTime.fromFormat(timeRange[0], "hh:mm");
 	const endTime = DateTime.fromFormat(timeRange[1], "hh:mm");
@@ -110,11 +139,20 @@ function makeAppointmentFromEdtDOM(_dom, _dayDate) {
 		}
 	}
 
-	return new ScheduleAppointment(
-		_dom.querySelector("td.TCase").textContent,
-		tcprof[0],
-		tcprof[1],
+	const result = new ScheduleAppointment(
+		tcCase.textContent,
+		tcProf[0],
+		tcProf[1],
 		range,
-		location
+		location,
 	);
+
+	if (teamsLinks.length > 0) {
+		result.teamsMain = teamsLinks[0].href;
+		result.teamsRose = teamsLinks[1].href;
+		result.teamsVert = teamsLinks[2].href;
+		result.teamsOrange = teamsLinks[3].href;
+	}
+
+	return result;
 }
