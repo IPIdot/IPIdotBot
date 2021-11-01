@@ -1,6 +1,8 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const {MessageEmbed} = require("discord.js");
 
+// TODO : refactor global config
+
 module.exports =
     {
         data: new SlashCommandBuilder()

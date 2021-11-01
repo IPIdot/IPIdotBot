@@ -4,6 +4,8 @@ const {MessageEmbed} = require("discord.js");
 
 permission= new Permissions(Permissions.FLAGS.ADMINISTRATOR);
 
+// TODO : check if it's work
+
 module.exports =
     {
         data: new SlashCommandBuilder()

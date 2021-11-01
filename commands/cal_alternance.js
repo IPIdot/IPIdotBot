@@ -2,6 +2,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const { CAL_L, CAL_M1, CAL_M2 } = require('../config.json');
 const {MessageEmbed} = require("discord.js");
 
+// TODO : refactor
 
 module.exports =
 {
