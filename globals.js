@@ -43,8 +43,27 @@ module.exports.DB = sequelize;
 module.exports.DB_TEST_CONNEXION = test_db_connexion;
 module.exports.dump = dump;
 module.exports.EDT_BASE_URL = "https://edtmobiliteng.wigorservices.net//WebPsDyn.aspx?action=posEDTBEECOME&serverid=G";
-module.exports.CALENDRIER_ALTERNANCE_L = "./assets/CalAlt.png";
-module.exports.CALENDRIER_ALTERNANCE_M1 = "PATH";
-module.exports.CALENDRIER_ALTERNANCE_M2 = "PATH";
+module.exports.RESOURCES = {
+  PATH: {
+    CALENDAR: {
+      PNG: {
+        L3: "./assets/calendar/png/Calendar_IPI_Digitalents_L3_2020_2021.png",
+        M1: "./assets/calendar/png/Calendar_IPI_Digitalents_M1_2021_2022.png"
+      },
+      PDF: {
+        L3: "./assets/calendar/pdf/Calendar_IPI_Digitalents_L3_2020_2021.pdf",
+        M1: "./assets/calendar/pdf/Calendar_IPI_Digitalents_M1_2021_2022.pdf"
+      }
+    },
+    LOGO: {
+      WITHOUTTYPO: "./assets/logo/logoIPITypo.png",
+      WITHTYPO: "./assets/logo/logoIPI.png"
+    }
+  },
+  URL: {
+    BEECOME: "https://www.beecome.io/dashboard",
+    PORTAL: "https://apprenant.ipi-lyon.info/"
+  }
+};
 
 // ############### END ###############

@@ -71,7 +71,7 @@ module.exports = {
 		const iUser = _interaction.user;
 		let content = `Hello **${iUser.username}** !`;
 
-		if (_interaction.options.getSubcommandGroup(false)) { // make sure that dont fuck up
+		if (_interaction.options.getSubcommandGroup(false)) {
 			switch (_interaction.options.getSubcommandGroup()) {
 				case SUB_CMD_GRP_MANAGE:
 					const user = await User.findByDiscordId(iUser.id);
