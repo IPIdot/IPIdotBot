@@ -25,5 +25,4 @@ jobs:
         script: |
           cd IPIdotBot
           git pull
-          npm i
-  # ? restart docker container
+          docker-compose up --build
