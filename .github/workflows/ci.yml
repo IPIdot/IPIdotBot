@@ -24,5 +24,6 @@ jobs:
         port: ${{ secrets.PORT }}
         script: |
           cd IPIdotBot
-          git pull
-          docker-compose up --build
+          git pull origin master
+          git status
+          docker-compose up -d --build
