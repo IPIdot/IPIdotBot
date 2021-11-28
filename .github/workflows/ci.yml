@@ -16,7 +16,7 @@ jobs:
     
     steps:
     - name: executing remote ssh commands
-      uses: appleboy/ssh-action@master
+      uses: appleboy/ssh-action@0.1.4
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
@@ -24,6 +24,6 @@ jobs:
         port: ${{ secrets.PORT }}
         script: |
           cd IPIdotBot
-          git pull origin master
+          git pull origin main
           git status
           docker-compose up -d --build
