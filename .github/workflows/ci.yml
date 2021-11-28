@@ -23,4 +23,7 @@ jobs:
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
         script: |
-          echo "Connection success" >> greeting.txt
+          cd IPIdotBot
+          git pull
+          npm i
+  # ? restart docker container
