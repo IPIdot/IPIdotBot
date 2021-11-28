@@ -9,6 +9,10 @@ Instalation du projet :
 npm install
 ```
 
+- BOT_TOKEN : bot token ( accecible in bot panel )
+- CLIENT_ID: owner id ( the user discord id of the master )
+- GUILD_ID : guild id ( discord serveur id )
+
 ## Feature
 
 - [ ] Message a l'ajout du bot sur le serveur ?
