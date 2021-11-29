@@ -2,7 +2,7 @@
 
 ## Installation
 
-> [lien invitation](https://discord.com/api/oauth2/authorize?client_id=897585601665187872&permissions=8&scope=bot)
+> [lien invitation](https://discord.com/oauth2/authorize?client_id=870198781675716629&permissions=8&scope=bot%20applications.commands)
 
 Instalation du projet :
 ```shell
