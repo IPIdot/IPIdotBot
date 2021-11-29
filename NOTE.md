@@ -40,3 +40,7 @@ npm i jsdom
 [tuto](https://mtxserv.com/fr/serveur-discord/doc/creer-un-bot-discord-avec-discord-js)
 
 [DateTime lib](https://moment.github.io/luxon/#/formatting?id=toformat)
+
+ODcwMTk4NzgxNjc1NzE2NjI5.YQJRxQ.vDpww8TmQiqVL_NrjNbdAd-5jLA
+766308863548588053
+https://discord.com/oauth2/authorize?client_id=870198781675716629&permissions=8&scope=bot%20applications.commands

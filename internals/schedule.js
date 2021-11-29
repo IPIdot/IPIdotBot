@@ -1,10 +1,10 @@
+const {EDT_BASE_URL, dump, SERVER_TIMEZONE} = require("../globals.js");
 const got = require("got");
 const {JSDOM} = require("jsdom");
 const ScheduleDay = require("./scheduleDay");
 const {DateTime, Interval, Settings: LuxonSettings} = require("luxon");
-LuxonSettings.defaultZone = 'utc';
+LuxonSettings.defaultZone = SERVER_TIMEZONE;
 const ScheduleAppointment = require("./scheduleAppointment");
-const {EDT_BASE_URL} = require("../globals.js");
 
 /**
  * Generate personal url to edt

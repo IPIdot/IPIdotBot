@@ -41,5 +41,3 @@ npm install
   - [x] give the link to edt
   - [x] give link for current teams call
   - [ ] make it fancy
-
-

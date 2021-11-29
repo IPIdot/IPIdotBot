@@ -1,5 +1,6 @@
+const {SERVER_TIMEZONE, dump} = require("../globals");
 const {DateTime, Settings: LuxonSettings} = require("luxon");
-LuxonSettings.defaultZone = 'utc';
+LuxonSettings.defaultZone = SERVER_TIMEZONE;
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const {MessageActionRow, MessageButton} = require("discord.js");
 const { scrapEDT, findDay, findAppointment, generate_edt_url } = require("../internals/schedule.js");
@@ -75,12 +76,12 @@ module.exports = {
 						replyOptions.content = `Ops, **${user.firstname} ${user.lastname}** something went wrong.`;
 					else {
 						const currentDay = findDay(scraped_edt);
-						const date = DateTime.utc();
+						const date = DateTime.local();
 
 						if (!currentDay) replyOptions.content = `**${user.firstname} ${user.lastname}** no course available on *${date.plus({hours: 1}).toFormat("EEEE d MMMM y")}*.`;
 						else {
 							const currentAppointment = findAppointment(currentDay);
-							if (!currentAppointment) replyOptions.content = `**${user.firstname} ${user.lastname}** no link available on *${date.plus({hours: 1}).toFormat("EEEE d MMMM y H:m")}*.`;
+							if (!currentAppointment) replyOptions.content = `**${user.firstname} ${user.lastname}** no link available on *${date.plus({hours: 1}).toFormat("EEEE d MMMM y H:mm")}*.`;
 							else {
 								replyOptions.content = `**${user.firstname} ${user.lastname}** please follow links below.\nIf it's incorrect, please verify your account firstname (${user.firstname.toLowerCase()}) and lastname (${user.lastname.toLowerCase()}).`;
 								replyOptions.components = [

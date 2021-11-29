@@ -1,5 +1,6 @@
+const { SERVER_TIMEZONE } = require("../globals");
 const { Settings: LuxonSettings } = require("luxon");
-LuxonSettings.defaultZone = 'utc';
+LuxonSettings.defaultZone = SERVER_TIMEZONE;
 
 module.exports = class ScheduleAppointment {
 

@@ -42,6 +42,7 @@ const dump = (_object, _title = null) => {
 module.exports.DB = sequelize;
 module.exports.DB_TEST_CONNEXION = test_db_connexion;
 module.exports.dump = dump;
+module.exports.SERVER_TIMEZONE = "CET";
 module.exports.EDT_BASE_URL = "https://edtmobiliteng.wigorservices.net//WebPsDyn.aspx?action=posEDTBEECOME&serverid=G";
 module.exports.RESOURCES = {
   PATH: {
