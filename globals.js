@@ -39,7 +39,9 @@ const dump = (_object, _title = null) => {
 }
 
 const htmlToImage = async (_html) => {
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({
+    args: ["--no-sandbox"]
+  });
   const page = await browser.newPage();
 
   await page.setContent(_html);
