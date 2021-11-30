@@ -27,4 +27,4 @@ jobs:
           git pull origin main
           git status
           npm install
-          docker-compose up -d --build
+          docker-compose up -d --force-recreate
