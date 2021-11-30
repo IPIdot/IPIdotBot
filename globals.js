@@ -40,7 +40,7 @@ const dump = (_object, _title = null) => {
 
 const htmlToImage = async (_html) => {
   const browser = await puppeteer.launch({
-    args: ["--no-sandbox"]
+    args: ["--no-sandbox", "--disable-setuid-sandbox"]
   });
   const page = await browser.newPage();
 
