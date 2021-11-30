@@ -1,5 +1,6 @@
 const { Sequelize } = require('sequelize');
 const { DEBUG_MODE } = require('./config.json');
+const puppeteer = require("puppeteer");
 
 // ############### DB IMPLEMENTATION ###############
 
@@ -37,11 +38,27 @@ const dump = (_object, _title = null) => {
   console.log(JSON.stringify(_object, null, 2));
 }
 
+const htmlToImage = async (_html) => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+
+  await page.setContent(_html);
+
+  const content = await page.$("#content");
+  const image = await content.screenshot({ omitBackground: true });
+
+  await page.close();
+  await browser.close();
+
+  return image;
+}
+
 // ############### Module Exports area #############
 
 module.exports.DB = sequelize;
 module.exports.DB_TEST_CONNEXION = test_db_connexion;
 module.exports.dump = dump;
+module.exports.htmlToImage = htmlToImage;
 module.exports.SERVER_TIMEZONE = "CET";
 module.exports.EDT_BASE_URL = "https://edtmobiliteng.wigorservices.net//WebPsDyn.aspx?action=posEDTBEECOME&serverid=G";
 module.exports.RESOURCES = {

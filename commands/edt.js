@@ -1,10 +1,10 @@
-const {SERVER_TIMEZONE, dump} = require("../globals");
-const {DateTime, Settings: LuxonSettings} = require("luxon");
+const { SERVER_TIMEZONE, htmlToImage } = require("../globals");
+const { DateTime, Settings: LuxonSettings } = require("luxon");
 LuxonSettings.defaultZone = SERVER_TIMEZONE;
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const {MessageActionRow, MessageButton} = require("discord.js");
+const { MessageActionRow, MessageButton, MessageAttachment } = require("discord.js");
 const { scrapEDT, findDay, findAppointment, generate_edt_url } = require("../internals/schedule.js");
-const {User} = require("../database/models/user.js");
+const { User } = require("../database/models/user.js");
 
 // ############### Constants ###############
 
@@ -38,6 +38,72 @@ edtCommand.addSubcommand(subCmd =>
 // ############### Utils ###############
 
 // const test_date = DateTime.utc(2021, 10, 18, 8, 47);
+
+const computeAppointmentTemplate = (_appointment) => {
+	return `
+		<div class="cell">
+        	<p>Module : <b>${_appointment.label}</b></p>
+            <p>Intervant : <b>${_appointment.presenter}</b></p>
+            <p>salle : <b>${_appointment.location}</b></p>
+            <p>Creanaux : <b>${_appointment.timeRange.start.toFormat("H:mm")} -> ${_appointment.timeRange.end.toFormat("H:mm")}</b></p>
+        </div>`;
+}
+
+const computeDailyCalendarTemplate = (_day) => {
+	const pageHead = `
+		<head>
+			<title></title>
+	        <style>
+	            * {
+	                margin: 0;
+	                padding: 0;
+	            }
+	
+	            *,
+	            *:before,
+	            *:after {
+	                box-sizing: border-box;
+	            }
+	
+	            html,
+	            body {
+	                width: 500px;
+	                background-color: whitesmoke;
+	                font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+	            }
+	
+	            #content {
+	                padding: 1rem;
+	            }
+	
+	            .cell {
+	                border: 2px solid red;
+	                border-right: none;
+	                margin-top: 1rem;
+	                padding: 1rem;
+	            }
+	            
+	            .title {
+	            	font-size: 1.5rem;
+	            }
+	        </style>
+	    </head>`;
+	let pageContent = `<div id="content">`;
+	pageContent += `<p class="title">Emploie du temps du <b>${_day.day.toFormat("EEEE d MMMM")}</b></p>`;
+	if (_day.appointments && _day.appointments.length > 0)
+		_day.appointments.forEach( appointment => pageContent += computeAppointmentTemplate(appointment));
+	else pageContent += `<p>Aucun cours aujourd'hui</p>`;
+	pageContent += `<p style="margin-top: 1rem; font-size: 12px; text-align: right;"><i>Demande faite le <b>${DateTime.now().setLocale("fr").toFormat("EEEE d MMMM H:mm")}</b></i></p>`;
+	pageContent += `</div>`;
+
+	return `
+		<html>
+			${pageHead}
+			<body>
+				${pageContent}
+			</body>
+		</html>`;
+}
 
 // ############### END ###############
 
@@ -76,12 +142,17 @@ module.exports = {
 						replyOptions.content = `Ops, **${user.firstname} ${user.lastname}** something went wrong.`;
 					else {
 						const currentDay = findDay(scraped_edt);
-						const date = DateTime.local();
+						const date = DateTime.now().setLocale("fr");
 
-						if (!currentDay) replyOptions.content = `**${user.firstname} ${user.lastname}** no course available on *${date.plus({hours: 1}).toFormat("EEEE d MMMM y")}*.`;
+						if (!currentDay) replyOptions.content = `**${user.firstname} ${user.lastname}** no course available on *${date.toFormat("EEEE d MMMM y")}*.`;
 						else {
-							const currentAppointment = findAppointment(currentDay);
-							if (!currentAppointment) replyOptions.content = `**${user.firstname} ${user.lastname}** no link available on *${date.plus({hours: 1}).toFormat("EEEE d MMMM y H:mm")}*.`;
+							const html = computeDailyCalendarTemplate(currentDay);
+							const image = await htmlToImage(html);
+							const attachment = new MessageAttachment(image, "edt.png");
+							replyOptions.files = [attachment];
+
+							const currentAppointment = findAppointment(currentDay, date);
+							if (!currentAppointment) replyOptions.content = `**${user.firstname} ${user.lastname}** no link available on *${date.toFormat("EEEE d MMMM y H:mm")}*.`;
 							else {
 								replyOptions.content = `**${user.firstname} ${user.lastname}** please follow links below.\nIf it's incorrect, please verify your account firstname (${user.firstname.toLowerCase()}) and lastname (${user.lastname.toLowerCase()}).`;
 								replyOptions.components = [
