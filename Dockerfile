@@ -1,5 +1,5 @@
-FROM node:alpine
+FROM node:bullseye
 
-RUN apk update && apk upgrade
+RUN apt-get update && apt-get upgrade
 
-RUN apk add --no-cache sqlite
+RUN apt-get install sqlite3 libsqlite3-dev
