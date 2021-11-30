@@ -1,4 +1,4 @@
-const {EDT_BASE_URL, dump, SERVER_TIMEZONE} = require("../globals.js");
+const {EDT_BASE_URL, SERVER_TIMEZONE} = require("../globals.js");
 const got = require("got");
 const {JSDOM} = require("jsdom");
 const ScheduleDay = require("./scheduleDay");
@@ -42,7 +42,7 @@ module.exports.findDay = (_calendar, _date = DateTime.utc()) => {
  * @param {DateTime} _date
  * @return {null|ScheduleAppointment}
  */
-module.exports.findAppointment = (_day, _date = DateTime.utc()) => {
+module.exports.findAppointment = (_day, _date = DateTime.now().setLocale("fr")) => {
 	if (!_day || !_day.appointments) return null;
 
 	return _day.appointments.find(elt => {
@@ -119,8 +119,8 @@ function makeAppointmentFromEdtDOM(_dom, _dayDate) {
 	const startTime = DateTime.fromFormat(timeRange[0], "hh:mm");
 	const endTime = DateTime.fromFormat(timeRange[1], "hh:mm");
 	const range = Interval.fromDateTimes(
-		new DateTime(_dayDate).plus({ hours: startTime.hour, minutes: startTime.minute}).toUTC(),
-		new DateTime(_dayDate).plus({ hours: endTime.hour, minutes: endTime.minute}).toUTC());
+		new DateTime(_dayDate).plus({ hours: startTime.hour, minutes: startTime.minute}),
+		new DateTime(_dayDate).plus({ hours: endTime.hour, minutes: endTime.minute}));
 
 	let location = _dom.querySelector("td.TCSalle")
 		.textContent
