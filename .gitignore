@@ -7,3 +7,4 @@ node_modules
 *.iml
 *.txt
 database/db.sqlite
+package-lock.json
