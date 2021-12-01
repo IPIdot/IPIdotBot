@@ -152,7 +152,7 @@ module.exports = {
 							replyOptions.files = [attachment];
 
 							const currentAppointment = findAppointment(currentDay, date);
-							if (!currentAppointment) replyOptions.content = `**${user.firstname} ${user.lastname}** no link available on *${date.toFormat("EEEE d MMMM y H:mm")}*.`;
+							if (!currentAppointment || !currentAppointment.teamsMain) replyOptions.content = `**${user.firstname} ${user.lastname}** no link available on *${date.toFormat("EEEE d MMMM y H:mm")}*.`;
 							else {
 								replyOptions.content = `**${user.firstname} ${user.lastname}** please follow links below.\nIf it's incorrect, please verify your account firstname (${user.firstname.toLowerCase()}) and lastname (${user.lastname.toLowerCase()}).`;
 								replyOptions.components = [
