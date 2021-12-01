@@ -44,8 +44,8 @@ const computeAppointmentTemplate = (_appointment) => {
 		<div class="cell">
         	<p>Module : <b>${_appointment.label}</b></p>
             <p>Intervant : <b>${_appointment.presenter}</b></p>
-            <p>salle : <b>${_appointment.location}</b></p>
-            <p>Creanaux : <b>${_appointment.timeRange.start.toFormat("H:mm")} -> ${_appointment.timeRange.end.toFormat("H:mm")}</b></p>
+            <p>Salle : <b>${_appointment.location}</b></p>
+            <p>Créneaux : <b>${_appointment.timeRange.start.toFormat("H:mm")} -> ${_appointment.timeRange.end.toFormat("H:mm")}</b></p>
         </div>`;
 }
 
@@ -89,7 +89,7 @@ const computeDailyCalendarTemplate = (_day) => {
 	        </style>
 	    </head>`;
 	let pageContent = `<div id="content">`;
-	pageContent += `<p class="title">Emploie du temps du <b>${_day.day.toFormat("EEEE d MMMM")}</b></p>`;
+	pageContent += `<p class="title">Emploi du temps du <b>${_day.day.toFormat("EEEE d MMMM")}</b></p>`;
 	if (_day.appointments && _day.appointments.length > 0)
 		_day.appointments.forEach( appointment => pageContent += computeAppointmentTemplate(appointment));
 	else pageContent += `<p>Aucun cours aujourd'hui</p>`;
