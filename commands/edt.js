@@ -42,15 +42,15 @@ edtCommand.addSubcommand(subCmd =>
 const computeAppointmentTemplate = (_appointment) => {
 	return `
 		<div class="moduleDiv">
-        	<p class="module"><FONT COLOR="#ff1027">M</FONT>ODULE : <b>{_appointment.label}</b></p>
-            <p class="bas" id="inter"><FONT COLOR="#ff1027">I</FONT>NTERVENANT : <b>${_appointment.presenter}</b></p>
+        	<p class="module">MODULE : <b>{_appointment.label}</b></p>
+            <p class="bas" id="inter">INTERVENANT : <b>${_appointment.presenter}</b></p>
       	</div>
       	<div class="generale">
       	<div class="basDiv" id="salle">
-      		<p class="bas" id="premier"><FONT COLOR="#ff1027">S</FONT>ALLE : <b>${_appointment.location}</b></p>
+      		<p class="bas" id="premier">SALLE : <b>${_appointment.location}</b></p>
       	</div>
       	<div class="basDiv" id="creneaux">
-        	<p class="bas"><FONT COLOR="#ff1027">C</FONT>RENEAUX : <b>${_appointment.timeRange.start.toFormat("H:mm")}➟${_appointment.timeRange.end.toFormat("H:mm")}</b></p>
+        	<p class="bas">CRENEAUX : <b>${_appointment.timeRange.start.toFormat("H:mm")}➟${_appointment.timeRange.end.toFormat("H:mm")}</b></p>
       	</div>`;
 }
 
@@ -137,11 +137,11 @@ const computeDailyCalendarTemplate = (_day) => {
         </style>
 	    </head>`;
 	let pageContent = `<div id="content">`;
-	pageContent += `<div class='top'><p class="title"><FONT COLOR="#ff1027">E</FONT>mploi du temps du <b>${_day.day.toFormat("EEEE d MMMM")}</b></p></div>`;
+	pageContent += `<div class='top'><p class="title">Emploi du temps du <b>${_day.day.toFormat("EEEE d MMMM")}</b></p></div>`;
 	if (_day.appointments && _day.appointments.length > 0)
 		_day.appointments.forEach( appointment => pageContent += computeAppointmentTemplate(appointment));
 	else pageContent += `<p>Aucun cours aujourd'hui</p>`;
-	pageContent += `<div class="foot"><p style="margin-top: 1rem; font-size: 12px; text-align: right;"><i><FONT COLOR="#ff1027">D</FONT>emande faite le <b>${DateTime.now().setLocale("fr").toFormat("EEEE d MMMM H:mm")}</b></i></p></div>`;
+	pageContent += `<div class="foot"><p style="margin-top: 1rem; font-size: 12px; text-align: right;"><i>Demande faite le <b>${DateTime.now().setLocale("fr").toFormat("EEEE d MMMM H:mm")}</b></i></p></div>`;
 	pageContent += `</div>`;
 
 	return `
