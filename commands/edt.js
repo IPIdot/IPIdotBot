@@ -42,7 +42,7 @@ edtCommand.addSubcommand(subCmd =>
 const computeAppointmentTemplate = (_appointment) => {
 	return `
 		<div class="moduleDiv">
-        	<p class="module">MODULE : <b>{_appointment.label}</b></p>
+        	<p class="module">MODULE : <b>${_appointment.label}</b></p>
             <p class="bas" id="inter">INTERVENANT : <b>${_appointment.presenter}</b></p>
       	</div>
       	<div class="generale">
@@ -50,7 +50,7 @@ const computeAppointmentTemplate = (_appointment) => {
       		<p class="bas" id="premier">SALLE : <b>${_appointment.location}</b></p>
       	</div>
       	<div class="basDiv" id="creneaux">
-        	<p class="bas">CRENEAUX : <b>${_appointment.timeRange.start.toFormat("H:mm")}➟${_appointment.timeRange.end.toFormat("H:mm")}</b></p>
+        	<p class="bas">CRENEAUX : <b>${_appointment.timeRange.start.toFormat("H:mm")} -> ${_appointment.timeRange.end.toFormat("H:mm")}</b></p>
       	</div>`;
 }
 
