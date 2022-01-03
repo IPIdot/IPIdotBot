@@ -41,26 +41,12 @@ edtCommand.addSubcommand(subCmd =>
 
 const computeAppointmentTemplate = (_appointment) => {
 	return `
-<<<<<<< HEAD
-		<div class="moduleDiv">
-        	<p class="module">MODULE : <b>{_appointment.label}</b></p>
-            <p class="bas" id="inter">INTERVENANT : <b>${_appointment.presenter}</b></p>
-      	</div>
-      	<div class="generale">
-      	<div class="basDiv" id="salle">
-      		<p class="bas" id="premier">SALLE : <b>${_appointment.location}</b></p>
-      	</div>
-      	<div class="basDiv" id="creneaux">
-        	<p class="bas">CRENEAUX : <b>${_appointment.timeRange.start.toFormat("H:mm")}➟${_appointment.timeRange.end.toFormat("H:mm")}</b></p>
-      	</div>`;
-=======
 		<div class="cell">
         	<p>Module : <b>${_appointment.label}</b></p>
             <p>Intervant : <b>${_appointment.presenter}</b></p>
             <p>Salle : <b>${_appointment.location}</b></p>
             <p>Créneaux : <b>${_appointment.timeRange.start.toFormat("H:mm")} -> ${_appointment.timeRange.end.toFormat("H:mm")}</b></p>
         </div>`;
->>>>>>> parent of 7106ae2 (Merge branch 'Ergo/team_url' into beta)
 }
 
 const computeDailyCalendarTemplate = (_day) => {
@@ -103,19 +89,11 @@ const computeDailyCalendarTemplate = (_day) => {
 	        </style>
 	    </head>`;
 	let pageContent = `<div id="content">`;
-<<<<<<< HEAD
-	pageContent += `<div class='top'><p class="title">Emploi du temps du <b>${_day.day.toFormat("EEEE d MMMM")}</b></p></div>`;
-	if (_day.appointments && _day.appointments.length > 0)
-		_day.appointments.forEach( appointment => pageContent += computeAppointmentTemplate(appointment));
-	else pageContent += `<p>Aucun cours aujourd'hui</p>`;
-	pageContent += `<div class="foot"><p style="margin-top: 1rem; font-size: 12px; text-align: right;"><i>Demande faite le <b>${DateTime.now().setLocale("fr").toFormat("EEEE d MMMM H:mm")}</b></i></p></div>`;
-=======
 	pageContent += `<p class="title">Emploi du temps du <b>${_day.day.toFormat("EEEE d MMMM")}</b></p>`;
 	if (_day.appointments && _day.appointments.length > 0)
 		_day.appointments.forEach( appointment => pageContent += computeAppointmentTemplate(appointment));
 	else pageContent += `<p>Aucun cours aujourd'hui</p>`;
 	pageContent += `<p style="margin-top: 1rem; font-size: 12px; text-align: right;"><i>Demande faite le <b>${DateTime.now().setLocale("fr").toFormat("EEEE d MMMM H:mm")}</b></i></p>`;
->>>>>>> parent of 7106ae2 (Merge branch 'Ergo/team_url' into beta)
 	pageContent += `</div>`;
 
 	return `
