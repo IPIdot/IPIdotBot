@@ -42,10 +42,10 @@ edtCommand.addSubcommand(subCmd =>
 const computeAppointmentTemplate = (_appointment) => {
 	return `
 		<div class="cell">
-        	<p><span style="color: #ff1027">M</span> : <b>${_appointment.label}</b></p>
+        	<p><span style="color: #ff1027">M</span>odule : <b>${_appointment.label}</b></p>
             <p><span style="color: #ff1027">I</span>ntervant : <b>${_appointment.presenter}</b></p>
-            <p><span style="color: #ff1027">S</span> : <b>${_appointment.location}</b></p>
-            <p><span style="color: #ff1027">C</span> : <b>${_appointment.timeRange.start.toFormat("H:mm")} -> ${_appointment.timeRange.end.toFormat("H:mm")}</b></p>
+            <p><span style="color: #ff1027">S</span>alle : <b>${_appointment.location}</b></p>
+            <p><span style="color: #ff1027">C</span>réneaux : <b>${_appointment.timeRange.start.toFormat("H:mm")} -> ${_appointment.timeRange.end.toFormat("H:mm")}</b></p>
         </div>`;
 }
 
@@ -80,9 +80,9 @@ const computeDailyCalendarTemplate = (_day) => {
 	                border: 1px solid #ff1027;
 	                border-right: none;
 	                border-left: none;
-	                border-bottom: none;
 	                margin-top: 1rem;
 	                padding: 1rem;
+	                padding-left: 0rem;
 	            }
 	            
 	            .title {
