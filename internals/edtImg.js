@@ -6,7 +6,7 @@ const { MessageActionRow, MessageButton, MessageAttachment } = require("discord.
 const { scrapEDT, findDay, findAppointment, generate_edt_url } = require("../internals/schedule.js");
 const { User } = require("../database/models/user.js");
 
-module.exports = class CreateEDTImage {
+class CreateEDTImage {
     constructor(){}
 
     CreateImageEDT() {
