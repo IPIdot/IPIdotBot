@@ -68,7 +68,7 @@ const computeDailyCalendarTemplate = (_day) => {
 	            html,
 	            body {
 	                width: 500px;
-	                background-color: whitesmoke;
+	                background-color: white;
 	                font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 	            }
 	
