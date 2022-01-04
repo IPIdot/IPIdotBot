@@ -94,8 +94,8 @@ const computeDailyCalendarTemplate = (_day) => {
 	pageContent += `<p class="title"><span style="color: #ff1027">E</span>mploi du temps du <b>${_day.day.toFormat("EEEE d MMMM")}</b></p>`;
 	if (_day.appointments && _day.appointments.length > 0)
 		_day.appointments.forEach( appointment => pageContent += computeAppointmentTemplate(appointment));
-	else pageContent += `<p>Aucun cours aujourd'hui</p>`;
-	pageContent += `<p style="margin-top: 1rem; font-size: 12px; text-align: right;"><i>Demande faite le <b>${DateTime.now().setLocale("fr").toFormat("EEEE d MMMM H:mm")}</b></i></p>`;
+	else pageContent += `<p><span style="color: #ff1027">A</span>ucun cours aujourd'hui</p>`;
+	pageContent += `<p style="margin-top: 1rem; font-size: 12px; text-align: right;"><i><span style="color: #ff1027">D</span>emande faite le <b>${DateTime.now().setLocale("fr").toFormat("EEEE d MMMM H:mm")}</b></i></p>`;
 	pageContent += `</div>`;
 
 	return `
