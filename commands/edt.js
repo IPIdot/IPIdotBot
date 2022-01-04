@@ -77,8 +77,9 @@ const computeDailyCalendarTemplate = (_day) => {
 	            }
 	
 	            .cell {
-	                border: 2px solid red;
+	                border: 1px solid #ff1027;
 	                border-right: none;
+	                border-left: none;
 	                margin-top: 1rem;
 	                padding: 1rem;
 	            }
@@ -89,7 +90,7 @@ const computeDailyCalendarTemplate = (_day) => {
 	        </style>
 	    </head>`;
 	let pageContent = `<div id="content">`;
-	pageContent += `<p class="title">Emploi du temps du <b>${_day.day.toFormat("EEEE d MMMM")}</b></p>`;
+	pageContent += `<p class="title"><span style="color: #ff1027">E</span>mploi du temps du <b>${_day.day.toFormat("EEEE d MMMM")}</b></p>`;
 	if (_day.appointments && _day.appointments.length > 0)
 		_day.appointments.forEach( appointment => pageContent += computeAppointmentTemplate(appointment));
 	else pageContent += `<p>Aucun cours aujourd'hui</p>`;
