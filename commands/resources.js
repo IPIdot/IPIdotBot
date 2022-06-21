@@ -122,7 +122,8 @@ module.exports = {
 									replyOptions.files = [CALENDAR_PATH.PNG.M1];
 									break;
 								case SUB_CMD_CALENDAR.YEAR_CHOICE.CHOICES.M2:
-									replyOptions.content = `Calendar not yet available.`;
+									replyOptions.content = `Here he his ! Your requested calendar :`;
+									replyOptions.files = [CALENDAR_PATH.PNG.M2];
 									break;
 								default:
 							}
@@ -138,7 +139,8 @@ module.exports = {
 									replyOptions.files = [CALENDAR_PATH.PDF.M1];
 									break;
 								case SUB_CMD_CALENDAR.YEAR_CHOICE.CHOICES.M2:
-									replyOptions.content = `Calendar not yet available.`;
+									replyOptions.content = `Here he his ! Your requested calendar :`;
+									replyOptions.files = [CALENDAR_PATH.PDF.M2];
 									break;
 								default:
 							}

@@ -68,11 +68,13 @@ module.exports.RESOURCES = {
     CALENDAR: {
       PNG: {
         L3: "./assets/calendar/png/Calendar_IPI_Digitalents_L3_2020_2021.png",
-        M1: "./assets/calendar/png/Calendar_IPI_Digitalents_M1_2021_2022.png"
+        M1: "./assets/calendar/png/Calendar_IPI_Digitalents_M1_2021_2022.png",
+        M2: "./assets/calendar/png/Calendar_IPI_Digitalents_M2_2022_2023.png"
       },
       PDF: {
         L3: "./assets/calendar/pdf/Calendar_IPI_Digitalents_L3_2020_2021.pdf",
-        M1: "./assets/calendar/pdf/Calendar_IPI_Digitalents_M1_2021_2022.pdf"
+        M1: "./assets/calendar/pdf/Calendar_IPI_Digitalents_M1_2021_2022.pdf",
+        M2: "./assets/calendar/png/Calendar_IPI_Digitalents_M2_2022_2023.png"
       }
     },
     LOGO: {
