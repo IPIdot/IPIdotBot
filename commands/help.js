@@ -1,19 +1,17 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { Permissions } = require('discord.js');
-const {MessageEmbed} = require("discord.js");
+const { RESOURCES } = require("../globals.js");
+const {MessageActionRow, MessageButton} = require("discord.js");
 
-permission= new Permissions(Permissions.FLAGS.ADMINISTRATOR);
-
-// TODO check utility
 
 module.exports =
     {
         data: new SlashCommandBuilder()
             .setName('help')
             .setDescription('Responds with a list of commands'),
-        async execute(interaction)
+        async execute(_interaction)
         {
-            replyOptions.content = `/edt url : Get edt web url\n
+            await _interaction.deferReply({ephemeral: true});
+            const content = `/edt url : Get edt web url\n
             /edt teams_url : Get team current main url\n
             \n
             /resource logo : Give requested logo\n
@@ -25,6 +23,7 @@ module.exports =
             /self manage update : Update your account (firstname, lastname)\n
             /self register : Register yourself into our service if is not already done`;
 
+            _interaction.reply(content);
         }
 
     }
