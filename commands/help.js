@@ -11,7 +11,7 @@ module.exports =
         async execute(_interaction)
         {
             await _interaction.deferReply({ephemeral: true});
-            const content = `/edt url : Get edt web url\n
+            await _interaction.reply(`/edt url : Get edt web url\n
             /edt teams_url : Get team current main url\n
             \n
             /resource logo : Give requested logo\n
@@ -21,9 +21,8 @@ module.exports =
             /self manage check : Check your account into our service\n
             /self manage remove : Remove your account from our service\n
             /self manage update : Update your account (firstname, lastname)\n
-            /self register : Register yourself into our service if is not already done`;
+            /self register : Register yourself into our service if is not already done`);
 
-            _interaction.reply(content);
         }
 
     }
