@@ -1,0 +1,30 @@
+name: Beta Continuous Deployment
+
+on:
+  push:
+    branches: [ beta ]
+    
+  #pull_request:
+  #  branches: [ main ]
+    
+  workflow_dispatch:
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Executing remote ssh commands
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.BETA_USERNAME }}
+        password: ${{ secrets.BETA_PASSWORD }}
+        port: ${{ secrets.PORT }}
+        script: |
+          cd IPIdotBot
+          git pull origin beta
+          git status
+          npm install
+          docker-compose up -d --force-recreate --build

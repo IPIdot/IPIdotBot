@@ -42,11 +42,11 @@ edtCommand.addSubcommand(subCmd =>
 const computeAppointmentTemplate = (_appointment) => {
 	return `
 		<div class="cell">
-        	<p>Module : <b>${_appointment.label}</b></p>
-            <p>Intervant : <b>${_appointment.presenter}</b></p>
-            <p>Salle : <b>${_appointment.location}</b></p>
-            <p>Créneaux : <b>${_appointment.timeRange.start.toFormat("H:mm")} -> ${_appointment.timeRange.end.toFormat("H:mm")}</b></p>
-        </div>`;
+        	<p><span style="color: #ff1027">M</span>odule : <b>${_appointment.label}</b></p>
+            <p><span style="color: #ff1027">I</span>ntervant : <b>${_appointment.presenter}</b></p>
+            <p><span style="color: #ff1027">S</span>alle : <b>${_appointment.location}</b></p>
+            <p><span style="color: #ff1027">C</span>réneaux : <b>${_appointment.timeRange.start.toFormat("H:mm")} -> ${_appointment.timeRange.end.toFormat("H:mm")}</b></p>
+       	</div>`;
 }
 
 const computeDailyCalendarTemplate = (_day) => {
@@ -68,7 +68,7 @@ const computeDailyCalendarTemplate = (_day) => {
 	            html,
 	            body {
 	                width: 500px;
-	                background-color: whitesmoke;
+	                background-color: white;
 	                font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 	            }
 	
@@ -77,10 +77,12 @@ const computeDailyCalendarTemplate = (_day) => {
 	            }
 	
 	            .cell {
-	                border: 2px solid red;
+	                border: 1px solid #ff1027;
 	                border-right: none;
+	                border-left: none;
 	                margin-top: 1rem;
 	                padding: 1rem;
+	                padding-left: 0rem;
 	            }
 	            
 	            .title {
@@ -88,12 +90,13 @@ const computeDailyCalendarTemplate = (_day) => {
 	            }
 	        </style>
 	    </head>`;
+	
 	let pageContent = `<div id="content">`;
-	pageContent += `<p class="title">Emploi du temps du <b>${_day.day.toFormat("EEEE d MMMM")}</b></p>`;
+	pageContent += `<p class="title"><span style="color: #ff1027">E</span>mploi du temps du <b>${_day.day.toFormat("EEEE d MMMM")}</b></p>`;
 	if (_day.appointments && _day.appointments.length > 0)
-		_day.appointments.forEach( appointment => pageContent += computeAppointmentTemplate(appointment));
-	else pageContent += `<p>Aucun cours aujourd'hui</p>`;
-	pageContent += `<p style="margin-top: 1rem; font-size: 12px; text-align: right;"><i>Demande faite le <b>${DateTime.now().setLocale("fr").toFormat("EEEE d MMMM H:mm")}</b></i></p>`;
+		_day.appointments.forEach(appointment => pageContent += computeAppointmentTemplate(appointment));
+	else pageContent += `<p><span style="color: #ff1027">A</span>ucun cours aujourd'hui</p>`;
+	pageContent += `<p style="margin-top: 1rem; font-size: 12px; text-align: right;"><i><span style="color: #ff1027">D</span>emande faite le <b>${DateTime.now().setLocale("fr").toFormat("EEEE d MMMM H:mm")}</b></i></p>`;
 	pageContent += `</div>`;
 
 	return `
