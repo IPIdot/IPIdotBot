@@ -10,7 +10,7 @@ module.exports =
             .setDescription('Responds with a list of commands'),
         async execute(_interaction)
         {
-            await _interaction.deferReply({ephemeral: true});
+            await _interaction.deferReply({ephemeral: true}); 
             await _interaction.reply(`/edt url : Get edt web url\n
             /edt teams_url : Get team current main url\n
             \n
