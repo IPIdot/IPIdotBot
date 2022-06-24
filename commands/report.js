@@ -12,12 +12,12 @@ module.exports =
             .addStringOption(_option =>
                 _option
                     .setName("title")
-                    .setDescription("Bug tiile")
+                    .setDescription("Bug title")
                     .setRequired(true)
                     )
             .addStringOption(_option =>
                 _option
-                    .setName("contenue")
+                    .setName("content")
                     .setDescription("Bug description")
                     .setRequired(true)
         ),
@@ -25,8 +25,10 @@ module.exports =
         {
             const iUser = _interaction.user;
             const user = await User.findByDiscordId(iUser.id);
+            const title = _interaction.options.getString("title");
+            const content = _interaction.options.getString("content");
 
-            _interaction.reply({content: ''});
+            _interaction.reply({content: `BUG REPORT | TITLE : ${title}\nAUTHOR : ${user.firstname} ${user.lastname}\n${content}`,ephemeral: true});
         }
 
     }
