@@ -23,12 +23,13 @@ module.exports =
         ),
         async execute(_interaction)
         {
+            const channel = _interaction.client.channels.find('report-bug');
             const iUser = _interaction.user;
             const user = await User.findByDiscordId(iUser.id);
             const title = _interaction.options.getString("title");
             const content = _interaction.options.getString("content");
 
-            _interaction.reply({content: `BUG REPORT | TITLE : ${title}\nAUTHOR : ${user.firstname} ${user.lastname}\n${content}`,ephemeral: true});
+            channel.send({content: `BUG REPORT | TITLE : ${title}\nAUTHOR : ${user.firstname} ${user.lastname}\n${content}`});
         }
 
     }
