@@ -23,7 +23,6 @@ module.exports =
         ),
         async execute(_interaction)
         {
-            const channel =;
             const iUser = _interaction.user;
             const user = await User.findByDiscordId(iUser.id);
             const title = _interaction.options.getString("title");
