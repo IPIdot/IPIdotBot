@@ -27,3 +27,17 @@ Finalement si la phrase a du sens et suis les conventions de langage de l'anglai
 
 
 Le code relatif au chatbot est contenu dans `src/commands/Nlp.ts`.
+
+## Schema du fonctionnement
+
+![schema](assets/documentation/schema.jpg)
+
+> L'utilisateur fait une demande en langage naturel
+
+- 1 : L'application de bureau envoie la demande au **bot discord** ( container docker )
+- 2 : Le **bot discord** demande une étude de la phrase au server CoreNLP ( container docker )
+- 3 : Le serveur **CoreNLP** analyse la phrase et renvoie le résultat au **bot discord** ( format JSON )
+- 4 : Le **bot discord** demande un filtrage (TokenRegex) pour déduire les actions à effectuer au serveur CoreNLP
+- 5 : Le serveur **CoreNLP** applique les filtres token sur la phrase et renvoie le résultat au **bot discord** ( format JSON )
+- 6 : Maintenant que le **bot discord** a une suite de demande d'action simple il tente de les effectuer s'il a les données necéssaires et réponds à l'application de bureau
+
