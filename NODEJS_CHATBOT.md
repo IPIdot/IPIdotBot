@@ -1,6 +1,6 @@
 # Node JS & Chatbot
 
-> Eymeric SERTGOZ, Maxime DECORDE et Emilien DENOT
+> Eymeric SERTGOZ, Maxime DECORDE, Hugo MERCIER et Emilien DENOT
 
 Dans le cadre de ce module, nous avons choisi d'intégrer une fonctionalité de **Chatbot** au bot discord déjà mis en place dans notre promotion.
 Le but serait d'avoir un slash commande particulier pour envoyer des demandes à un bot sous forme de phrase en **langage naturel**.
