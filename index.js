@@ -1,4 +1,4 @@
-const fs = require('fs');
+//const fs = require('fs');
 const { Client, Intents, Collection } = require('discord.js');
 const { BOT_TOKEN } = require('./config.json');
 const { DB, DB_TEST_CONNEXION } = require("./globals.js");

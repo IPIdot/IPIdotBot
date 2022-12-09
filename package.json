@@ -2,8 +2,9 @@
   "name": "ipi-bot",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/Bot.ts",
   "scripts": {
+    "start": "ts-node src/Bot.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -12,18 +13,26 @@
   "dependencies": {
     "@discordjs/builders": "^0.6.0",
     "@discordjs/rest": "^0.1.0-canary.0",
+    "axios": "^1.2.1",
     "discord-api-types": "^0.23.1",
     "discord.js": "^13.2.0",
     "discord.js-commando": "^0.12.3",
-    "dotenv": "^10.0.0",
+    "dotenv": "^16.0.3",
     "got": "^11.8.2",
     "html-to-image": "^1.9.0",
     "jsdom": "^18.0.0",
     "luxon": "^2.0.2",
     "moment": "^2.29.1",
+    "node-fetch": "^3.3.0",
     "node-html-to-image": "^3.2.0",
     "puppeteer": "^3.0.4",
+    "request": "^2.88.2",
     "sequelize": "^6.7.0",
     "sqlite3": "^5.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.11",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.3"
   }
 }

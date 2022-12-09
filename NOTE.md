@@ -6,31 +6,27 @@
 npm init -y
 ```
 
-```shell
-npm i dotenv  
-```
-
 Discord API
 ```shell
-npm i discord.js
+yarn add discord.js
 ```
 
-Command framework for Discord API
+xx Command framework for Discord API
 ```shell
 npm i discord.js-commando
 ```
 
-Deploy commands
+xx Deploy commands
 ```shell
 npm install @discordjs/builders @discordjs/rest discord-api-types
 ```
 
-Lib to fetch data from link
+xx Lib to fetch data from link
 ```shell
 npm i got
 ```
 
-Lib to make dom from string
+xx Lib to make dom from string
 ```shell
 npm i jsdom
 ```
