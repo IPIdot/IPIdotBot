@@ -24,3 +24,6 @@ La phrase *Hi great bot, i wish for Eymeric SERTGOZ email* est transmise au Core
 Si le resultat nous confirme la demande, on requête une nouvelle fois le CoreNLP server afin de trouver si un nom et prénom ont été indiqué.
 
 Finalement si la phrase a du sens et suis les conventions de langage de l'anglais le **ChatBot** peut renvoyer le mail de la personne demandé si celle-ci est bien enregistré dans le **Bot discord**.
+
+
+Le code relatif au chatbot est contenu dans `src/commands/Nlp.ts`.
